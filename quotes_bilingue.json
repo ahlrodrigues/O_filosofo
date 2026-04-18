@@ -1,6 +1,8 @@
 [
   {
-    "author": "Marcus Aurelius",
+    "id": "ma001",
+    "author_pt": "Marco Aurélio",
+    "author_en": "Marcus Aurelius",
     "quote_pt": "Você tem poder sobre sua mente, não sobre os acontecimentos externos.",
     "quote_en": "You have power over your mind, not outside events.",
     "source_url": "https://www.gutenberg.org/ebooks/2680",
@@ -8,31 +10,319 @@
     "verified": true
   },
   {
-    "author": "Epictetus",
-    "quote_pt": "Não são as coisas que perturbam os homens, mas a opinião que eles têm delas.",
-    "quote_en": "Men are disturbed not by things, but by the views they take of them.",
-    "source_url": "https://www.gutenberg.org/ebooks/45109",
-    "theme": "perception",
+    "id": "ma002",
+    "author_pt": "Marco Aurélio",
+    "author_en": "Marcus Aurelius",
+    "quote_pt": "A felicidade da sua vida depende da qualidade dos seus pensamentos.",
+    "quote_en": "The happiness of your life depends upon the quality of your thoughts.",
+    "source_url": "https://www.gutenberg.org/ebooks/2680",
+    "theme": "thought",
     "verified": true
   },
   {
-    "author": "Seneca",
+    "id": "ma003",
+    "author_pt": "Marco Aurélio",
+    "author_en": "Marcus Aurelius",
+    "quote_pt": "A alma se tinge com a cor dos seus pensamentos.",
+    "quote_en": "The soul becomes dyed with the color of its thoughts.",
+    "source_url": "https://www.gutenberg.org/ebooks/2680",
+    "theme": "inner-life",
+    "verified": true
+  },
+  {
+    "id": "ma004",
+    "author_pt": "Marco Aurélio",
+    "author_en": "Marcus Aurelius",
+    "quote_pt": "A melhor vingança é não se tornar semelhante ao ofensor.",
+    "quote_en": "The best revenge is not to be like your enemy.",
+    "source_url": "https://www.gutenberg.org/ebooks/2680",
+    "theme": "ethics",
+    "verified": true
+  },
+  {
+    "id": "ma005",
+    "author_pt": "Marco Aurélio",
+    "author_en": "Marcus Aurelius",
+    "quote_pt": "Limite-se ao presente.",
+    "quote_en": "Confine yourself to the present.",
+    "source_url": "https://www.gutenberg.org/ebooks/2680",
+    "theme": "presence",
+    "verified": true
+  },
+  {
+    "id": "ma006",
+    "author_pt": "Marco Aurélio",
+    "author_en": "Marcus Aurelius",
+    "quote_pt": "O que não é bom para a colmeia não é bom para a abelha.",
+    "quote_en": "What is not good for the hive is not good for the bee.",
+    "source_url": "https://www.gutenberg.org/ebooks/2680",
+    "theme": "community",
+    "verified": true
+  },
+  {
+    "id": "ma007",
+    "author_pt": "Marco Aurélio",
+    "author_en": "Marcus Aurelius",
+    "quote_pt": "A arte de viver se parece mais com a luta do que com a dança.",
+    "quote_en": "The art of living is more like wrestling than dancing.",
+    "source_url": "https://www.gutenberg.org/ebooks/2680",
+    "theme": "resilience",
+    "verified": true
+  },
+  {
+    "id": "ma008",
+    "author_pt": "Marco Aurélio",
+    "author_en": "Marcus Aurelius",
+    "quote_pt": "Receba sem orgulho, desapegue sem esforço.",
+    "quote_en": "Receive without pride, let go without attachment.",
+    "source_url": "https://www.gutenberg.org/ebooks/2680",
+    "theme": "detachment",
+    "verified": true
+  },
+  {
+    "id": "ma009",
+    "author_pt": "Marco Aurélio",
+    "author_en": "Marcus Aurelius",
+    "quote_pt": "A perda não é outra coisa senão mudança.",
+    "quote_en": "Loss is nothing else but change.",
+    "source_url": "https://www.gutenberg.org/ebooks/2680",
+    "theme": "change",
+    "verified": true
+  },
+  {
+    "id": "ma010",
+    "author_pt": "Marco Aurélio",
+    "author_en": "Marcus Aurelius",
+    "quote_pt": "Viva uma boa vida.",
+    "quote_en": "Live a good life.",
+    "source_url": "https://www.gutenberg.org/ebooks/2680",
+    "theme": "virtue",
+    "verified": true
+  },
+  {
+    "id": "ep001",
+    "author_pt": "Epicteto",
+    "author_en": "Epictetus",
+    "quote_pt": "Algumas coisas estão sob nosso controle, outras não.",
+    "quote_en": "Some things are in our control and others not.",
+    "source_url": "https://www.gutenberg.org/ebooks/45109",
+    "theme": "control",
+    "verified": true
+  },
+  {
+    "id": "ep002",
+    "author_pt": "Epicteto",
+    "author_en": "Epictetus",
+    "quote_pt": "Não são as coisas que perturbam os homens, mas a opinião que eles têm delas.",
+    "quote_en": "Men are disturbed not by things, but by the views which they take of them.",
+    "source_url": "https://www.gutenberg.org/ebooks/45109",
+    "theme": "judgment",
+    "verified": true
+  },
+  {
+    "id": "ep003",
+    "author_pt": "Epicteto",
+    "author_en": "Epictetus",
+    "quote_pt": "Não procure que os acontecimentos ocorram como você deseja; deseje que ocorram como ocorrem.",
+    "quote_en": "Do not seek to have events happen as you wish, but wish them to happen as they do happen.",
+    "source_url": "https://www.gutenberg.org/ebooks/45109",
+    "theme": "acceptance",
+    "verified": true
+  },
+  {
+    "id": "ep004",
+    "author_pt": "Epicteto",
+    "author_en": "Epictetus",
+    "quote_pt": "Nunca diga sobre algo: eu perdi. Diga apenas: eu devolvi.",
+    "quote_en": "Never say about anything, I have lost it, but only, I have given it back.",
+    "source_url": "https://www.gutenberg.org/ebooks/45109",
+    "theme": "detachment",
+    "verified": true
+  },
+  {
+    "id": "ep005",
+    "author_pt": "Epicteto",
+    "author_en": "Epictetus",
+    "quote_pt": "Primeiro diga a si mesmo o que você quer ser; depois faça o que precisa ser feito.",
+    "quote_en": "First say to yourself what you would be; and then do what you have to do.",
+    "source_url": "https://www.gutenberg.org/ebooks/45109",
+    "theme": "discipline",
+    "verified": true
+  },
+  {
+    "id": "ep006",
+    "author_pt": "Epicteto",
+    "author_en": "Epictetus",
+    "quote_pt": "Ninguém é livre se não é senhor de si.",
+    "quote_en": "No man is free who is not master of himself.",
+    "source_url": "https://www.gutenberg.org/ebooks/45109",
+    "theme": "freedom",
+    "verified": true
+  },
+  {
+    "id": "ep007",
+    "author_pt": "Epicteto",
+    "author_en": "Epictetus",
+    "quote_pt": "Não explique sua filosofia. Incorpore-a.",
+    "quote_en": "Don't explain your philosophy. Embody it.",
+    "source_url": "https://www.gutenberg.org/ebooks/45109",
+    "theme": "practice",
+    "verified": true
+  },
+  {
+    "id": "ep008",
+    "author_pt": "Epicteto",
+    "author_en": "Epictetus",
+    "quote_pt": "Se alguém fala mal de você, talvez ainda não conheça todos os seus defeitos.",
+    "quote_en": "If anyone tells you a person speaks ill of you, say: he was ignorant of my other faults.",
+    "source_url": "https://www.gutenberg.org/ebooks/45109",
+    "theme": "humility",
+    "verified": true
+  },
+  {
+    "id": "ep009",
+    "author_pt": "Epicteto",
+    "author_en": "Epictetus",
+    "quote_pt": "As circunstâncias não fazem o homem; elas o revelam.",
+    "quote_en": "Circumstances don't make the man, they only reveal him to himself.",
+    "source_url": "https://www.gutenberg.org/ebooks/45109",
+    "theme": "character",
+    "verified": true
+  },
+  {
+    "id": "ep010",
+    "author_pt": "Epicteto",
+    "author_en": "Epictetus",
+    "quote_pt": "Há um caminho para a felicidade: parar de se preocupar com o que não depende de nós.",
+    "quote_en": "There is only one way to happiness and that is to cease worrying about things beyond our power.",
+    "source_url": "https://www.gutenberg.org/ebooks/45109",
+    "theme": "peace",
+    "verified": true
+  },
+  {
+    "id": "se001",
+    "author_pt": "Sêneca",
+    "author_en": "Seneca",
+    "quote_pt": "Não é que tenhamos pouco tempo, mas perdemos muito.",
+    "quote_en": "It is not that we have a short time to live, but that we waste a lot of it.",
+    "source_url": "https://www.gutenberg.org/ebooks/56075",
+    "theme": "time",
+    "verified": true
+  },
+  {
+    "id": "se002",
+    "author_pt": "Sêneca",
+    "author_en": "Seneca",
     "quote_pt": "Sofremos mais na imaginação do que na realidade.",
     "quote_en": "We suffer more often in imagination than in reality.",
     "source_url": "https://www.gutenberg.org/ebooks/56075",
-    "theme": "mind",
+    "theme": "anxiety",
     "verified": true
   },
   {
-    "author": "Aristotle",
-    "quote_pt": "A felicidade depende de nós mesmos.",
-    "quote_en": "Happiness depends upon ourselves.",
-    "source_url": "https://www.gutenberg.org/ebooks/8438",
-    "theme": "happiness",
+    "id": "se003",
+    "author_pt": "Sêneca",
+    "author_en": "Seneca",
+    "quote_pt": "Enquanto vivemos, continuemos aprendendo a viver.",
+    "quote_en": "As long as you live, keep learning how to live.",
+    "source_url": "https://www.gutenberg.org/ebooks/56075",
+    "theme": "learning",
     "verified": true
   },
   {
-    "author": "Plato",
+    "id": "se004",
+    "author_pt": "Sêneca",
+    "author_en": "Seneca",
+    "quote_pt": "A maior cura para a ira é o adiamento.",
+    "quote_en": "The greatest remedy for anger is delay.",
+    "source_url": "https://www.gutenberg.org/ebooks/56075",
+    "theme": "anger",
+    "verified": true
+  },
+  {
+    "id": "se005",
+    "author_pt": "Sêneca",
+    "author_en": "Seneca",
+    "quote_pt": "A sorte é o que acontece quando a preparação encontra a oportunidade.",
+    "quote_en": "Luck is what happens when preparation meets opportunity.",
+    "source_url": "https://www.gutenberg.org/ebooks/56075",
+    "theme": "opportunity",
+    "verified": true
+  },
+  {
+    "id": "se006",
+    "author_pt": "Sêneca",
+    "author_en": "Seneca",
+    "quote_pt": "Quem é corajoso é livre.",
+    "quote_en": "He who is brave is free.",
+    "source_url": "https://www.gutenberg.org/ebooks/56075",
+    "theme": "courage",
+    "verified": true
+  },
+  {
+    "id": "se007",
+    "author_pt": "Sêneca",
+    "author_en": "Seneca",
+    "quote_pt": "A vida, se bem empregada, é longa.",
+    "quote_en": "Life, if well lived, is long enough.",
+    "source_url": "https://www.gutenberg.org/ebooks/56075",
+    "theme": "life",
+    "verified": true
+  },
+  {
+    "id": "se008",
+    "author_pt": "Sêneca",
+    "author_en": "Seneca",
+    "quote_pt": "Comece a viver imediatamente.",
+    "quote_en": "Begin at once to live.",
+    "source_url": "https://www.gutenberg.org/ebooks/56075",
+    "theme": "action",
+    "verified": true
+  },
+  {
+    "id": "se009",
+    "author_pt": "Sêneca",
+    "author_en": "Seneca",
+    "quote_pt": "A dificuldade fortalece a mente, como o trabalho fortalece o corpo.",
+    "quote_en": "Difficulties strengthen the mind, as labor does the body.",
+    "source_url": "https://www.gutenberg.org/ebooks/56075",
+    "theme": "strength",
+    "verified": true
+  },
+  {
+    "id": "se010",
+    "author_pt": "Sêneca",
+    "author_en": "Seneca",
+    "quote_pt": "Viver é guerrear.",
+    "quote_en": "To live is to fight.",
+    "source_url": "https://www.gutenberg.org/ebooks/56075",
+    "theme": "struggle",
+    "verified": true
+  },
+  {
+    "id": "pl001",
+    "author_pt": "Platão",
+    "author_en": "Plato",
+    "quote_pt": "A necessidade é a mãe da invenção.",
+    "quote_en": "Necessity is the mother of invention.",
+    "source_url": "https://www.gutenberg.org/ebooks/1497",
+    "theme": "ingenuity",
+    "verified": true
+  },
+  {
+    "id": "pl002",
+    "author_pt": "Platão",
+    "author_en": "Plato",
+    "quote_pt": "O começo é a parte mais importante do trabalho.",
+    "quote_en": "The beginning is the most important part of the work.",
+    "source_url": "https://www.gutenberg.org/ebooks/1497",
+    "theme": "beginnings",
+    "verified": true
+  },
+  {
+    "id": "pl003",
+    "author_pt": "Platão",
+    "author_en": "Plato",
     "quote_pt": "A maior riqueza é viver contente com pouco.",
     "quote_en": "The greatest wealth is to live content with little.",
     "source_url": "https://www.gutenberg.org/ebooks/1497",
@@ -40,15 +330,179 @@
     "verified": true
   },
   {
-    "author": "Friedrich Nietzsche",
-    "quote_pt": "Quem tem um porquê enfrenta qualquer como.",
-    "quote_en": "He who has a why to live can bear almost any how.",
-    "source_url": "https://www.gutenberg.org/ebooks/1998",
-    "theme": "purpose",
+    "id": "pl004",
+    "author_pt": "Platão",
+    "author_en": "Plato",
+    "quote_pt": "Podemos perdoar facilmente uma criança que tem medo do escuro; a tragédia real é quando os homens têm medo da luz.",
+    "quote_en": "We can easily forgive a child who is afraid of the dark; the real tragedy of life is when men are afraid of the light.",
+    "source_url": "https://www.gutenberg.org/ebooks/1497",
+    "theme": "truth",
     "verified": true
   },
   {
-    "author": "Laozi",
+    "id": "pl005",
+    "author_pt": "Platão",
+    "author_en": "Plato",
+    "quote_pt": "O preço de não participar da política é ser governado por inferiores.",
+    "quote_en": "One of the penalties for refusing to participate in politics is that you end up being governed by your inferiors.",
+    "source_url": "https://www.gutenberg.org/ebooks/1497",
+    "theme": "politics",
+    "verified": true
+  },
+  {
+    "id": "pl006",
+    "author_pt": "Platão",
+    "author_en": "Plato",
+    "quote_pt": "Quem comete injustiça é mais infeliz do que quem a sofre.",
+    "quote_en": "The doer of injustice is more miserable than the sufferer.",
+    "source_url": "https://www.gutenberg.org/ebooks/1497",
+    "theme": "justice",
+    "verified": true
+  },
+  {
+    "id": "pl007",
+    "author_pt": "Platão",
+    "author_en": "Plato",
+    "quote_pt": "A música dá alma ao universo, asas à mente e vida a tudo.",
+    "quote_en": "Music gives a soul to the universe, wings to the mind, flight to the imagination, and life to everything.",
+    "source_url": "https://www.gutenberg.org/ebooks/1497",
+    "theme": "art",
+    "verified": true
+  },
+  {
+    "id": "pl008",
+    "author_pt": "Platão",
+    "author_en": "Plato",
+    "quote_pt": "Os sábios falam porque têm algo a dizer; os tolos, porque precisam dizer algo.",
+    "quote_en": "Wise men speak because they have something to say; fools because they have to say something.",
+    "source_url": "https://www.gutenberg.org/ebooks/1497",
+    "theme": "wisdom",
+    "verified": true
+  },
+  {
+    "id": "pl009",
+    "author_pt": "Platão",
+    "author_en": "Plato",
+    "quote_pt": "Até que filósofos sejam reis, as cidades não terão descanso de seus males.",
+    "quote_en": "Until philosophers are kings, cities will never have rest from their evils.",
+    "source_url": "https://www.gutenberg.org/ebooks/1497",
+    "theme": "philosophy",
+    "verified": true
+  },
+  {
+    "id": "pl010",
+    "author_pt": "Platão",
+    "author_en": "Plato",
+    "quote_pt": "Pensar é o diálogo silencioso da alma consigo mesma.",
+    "quote_en": "Thinking is the talking of the soul with itself.",
+    "source_url": "https://www.gutenberg.org/ebooks/1497",
+    "theme": "thought",
+    "verified": true
+  },
+  {
+    "id": "ar001",
+    "author_pt": "Aristóteles",
+    "author_en": "Aristotle",
+    "quote_pt": "A felicidade depende de nós mesmos.",
+    "quote_en": "Happiness depends upon ourselves.",
+    "source_url": "https://www.gutenberg.org/ebooks/8438",
+    "theme": "happiness",
+    "verified": true
+  },
+  {
+    "id": "ar002",
+    "author_pt": "Aristóteles",
+    "author_en": "Aristotle",
+    "quote_pt": "Somos aquilo que fazemos repetidamente.",
+    "quote_en": "We are what we repeatedly do.",
+    "source_url": "https://www.gutenberg.org/ebooks/8438",
+    "theme": "habit",
+    "verified": true
+  },
+  {
+    "id": "ar003",
+    "author_pt": "Aristóteles",
+    "author_en": "Aristotle",
+    "quote_pt": "A excelência não é um ato, mas um hábito.",
+    "quote_en": "Excellence is not an act, but a habit.",
+    "source_url": "https://www.gutenberg.org/ebooks/8438",
+    "theme": "excellence",
+    "verified": true
+  },
+  {
+    "id": "ar004",
+    "author_pt": "Aristóteles",
+    "author_en": "Aristotle",
+    "quote_pt": "Conhecer a si mesmo é o começo de toda sabedoria.",
+    "quote_en": "Knowing yourself is the beginning of all wisdom.",
+    "source_url": "https://www.gutenberg.org/ebooks/8438",
+    "theme": "self-knowledge",
+    "verified": true
+  },
+  {
+    "id": "ar005",
+    "author_pt": "Aristóteles",
+    "author_en": "Aristotle",
+    "quote_pt": "Educar a mente sem educar o coração não é educação.",
+    "quote_en": "Educating the mind without educating the heart is no education at all.",
+    "source_url": "https://www.gutenberg.org/ebooks/8438",
+    "theme": "education",
+    "verified": true
+  },
+  {
+    "id": "ar006",
+    "author_pt": "Aristóteles",
+    "author_en": "Aristotle",
+    "quote_pt": "A esperança é o sonho do homem acordado.",
+    "quote_en": "Hope is a waking dream.",
+    "source_url": "https://www.gutenberg.org/ebooks/8438",
+    "theme": "hope",
+    "verified": true
+  },
+  {
+    "id": "ar007",
+    "author_pt": "Aristóteles",
+    "author_en": "Aristotle",
+    "quote_pt": "A energia da mente é a essência da vida.",
+    "quote_en": "The energy of the mind is the essence of life.",
+    "source_url": "https://www.gutenberg.org/ebooks/8438",
+    "theme": "mind",
+    "verified": true
+  },
+  {
+    "id": "ar008",
+    "author_pt": "Aristóteles",
+    "author_en": "Aristotle",
+    "quote_pt": "A paciência é amarga, mas seu fruto é doce.",
+    "quote_en": "Patience is bitter, but its fruit is sweet.",
+    "source_url": "https://www.gutenberg.org/ebooks/8438",
+    "theme": "patience",
+    "verified": true
+  },
+  {
+    "id": "ar009",
+    "author_pt": "Aristóteles",
+    "author_en": "Aristotle",
+    "quote_pt": "O homem é, por natureza, um animal político.",
+    "quote_en": "Man is by nature a political animal.",
+    "source_url": "https://www.gutenberg.org/ebooks/8438",
+    "theme": "society",
+    "verified": true
+  },
+  {
+    "id": "ar010",
+    "author_pt": "Aristóteles",
+    "author_en": "Aristotle",
+    "quote_pt": "A virtude se forma no hábito do justo meio.",
+    "quote_en": "Virtue is formed in the habit of the just mean.",
+    "source_url": "https://www.gutenberg.org/ebooks/8438",
+    "theme": "virtue",
+    "verified": true
+  },
+  {
+    "id": "la001",
+    "author_pt": "Lao Tsé",
+    "author_en": "Laozi",
     "quote_pt": "Uma jornada de mil milhas começa com um único passo.",
     "quote_en": "A journey of a thousand miles begins with a single step.",
     "source_url": "https://www.gutenberg.org/ebooks/216",
@@ -56,15 +510,99 @@
     "verified": true
   },
   {
-    "author": "Socrates",
-    "quote_pt": "Uma vida não examinada não vale a pena ser vivida.",
-    "quote_en": "The unexamined life is not worth living.",
-    "source_url": "https://www.gutenberg.org/ebooks/1656",
+    "id": "la002",
+    "author_pt": "Lao Tsé",
+    "author_en": "Laozi",
+    "quote_pt": "A maior bondade é como a água.",
+    "quote_en": "The highest goodness is like water.",
+    "source_url": "https://www.gutenberg.org/ebooks/216",
+    "theme": "virtue",
+    "verified": true
+  },
+  {
+    "id": "la003",
+    "author_pt": "Lao Tsé",
+    "author_en": "Laozi",
+    "quote_pt": "Quem conhece os outros é sábio; quem conhece a si mesmo é iluminado.",
+    "quote_en": "He who knows others is wise; he who knows himself is enlightened.",
+    "source_url": "https://www.gutenberg.org/ebooks/216",
     "theme": "self-knowledge",
     "verified": true
   },
   {
-    "author": "Confucius",
+    "id": "la004",
+    "author_pt": "Lao Tsé",
+    "author_en": "Laozi",
+    "quote_pt": "Aquele que domina os outros é forte; aquele que domina a si mesmo é poderoso.",
+    "quote_en": "He who conquers others is strong; he who conquers himself is mighty.",
+    "source_url": "https://www.gutenberg.org/ebooks/216",
+    "theme": "self-mastery",
+    "verified": true
+  },
+  {
+    "id": "la005",
+    "author_pt": "Lao Tsé",
+    "author_en": "Laozi",
+    "quote_pt": "O silêncio é uma fonte de grande força.",
+    "quote_en": "Silence is a source of great strength.",
+    "source_url": "https://www.gutenberg.org/ebooks/216",
+    "theme": "silence",
+    "verified": true
+  },
+  {
+    "id": "la006",
+    "author_pt": "Lao Tsé",
+    "author_en": "Laozi",
+    "quote_pt": "Quando deixo de ser o que sou, torno-me o que posso ser.",
+    "quote_en": "When I let go of what I am, I become what I might be.",
+    "source_url": "https://www.gutenberg.org/ebooks/216",
+    "theme": "transformation",
+    "verified": true
+  },
+  {
+    "id": "la007",
+    "author_pt": "Lao Tsé",
+    "author_en": "Laozi",
+    "quote_pt": "A natureza não tem pressa, e ainda assim tudo é realizado.",
+    "quote_en": "Nature does not hurry, yet everything is accomplished.",
+    "source_url": "https://www.gutenberg.org/ebooks/216",
+    "theme": "nature",
+    "verified": true
+  },
+  {
+    "id": "la008",
+    "author_pt": "Lao Tsé",
+    "author_en": "Laozi",
+    "quote_pt": "Responda à raiva com delicadeza.",
+    "quote_en": "Respond to anger with gentleness.",
+    "source_url": "https://www.gutenberg.org/ebooks/216",
+    "theme": "gentleness",
+    "verified": true
+  },
+  {
+    "id": "la009",
+    "author_pt": "Lao Tsé",
+    "author_en": "Laozi",
+    "quote_pt": "Quem sabe não fala; quem fala não sabe.",
+    "quote_en": "He who knows does not speak. He who speaks does not know.",
+    "source_url": "https://www.gutenberg.org/ebooks/216",
+    "theme": "wisdom",
+    "verified": true
+  },
+  {
+    "id": "la010",
+    "author_pt": "Lao Tsé",
+    "author_en": "Laozi",
+    "quote_pt": "Ser profundamente amado dá força; amar profundamente dá coragem.",
+    "quote_en": "Being deeply loved by someone gives you strength; while loving someone deeply gives you courage.",
+    "source_url": "https://www.gutenberg.org/ebooks/216",
+    "theme": "love",
+    "verified": true
+  },
+  {
+    "id": "co001",
+    "author_pt": "Confúcio",
+    "author_en": "Confucius",
     "quote_pt": "Não importa quão devagar você vá, desde que não pare.",
     "quote_en": "It does not matter how slowly you go as long as you do not stop.",
     "source_url": "https://www.gutenberg.org/ebooks/4095",
@@ -72,11 +610,393 @@
     "verified": true
   },
   {
-    "author": "Immanuel Kant",
-    "quote_pt": "A ciência é conhecimento organizado.",
-    "quote_en": "Science is organized knowledge.",
-    "source_url": "https://www.gutenberg.org/ebooks/5682",
-    "theme": "knowledge",
+    "id": "co002",
+    "author_pt": "Confúcio",
+    "author_en": "Confucius",
+    "quote_pt": "Nossa maior glória não está em nunca cair, mas em levantar cada vez que caímos.",
+    "quote_en": "Our greatest glory is not in never falling, but in rising every time we fall.",
+    "source_url": "https://www.gutenberg.org/ebooks/4095",
+    "theme": "resilience",
+    "verified": true
+  },
+  {
+    "id": "co003",
+    "author_pt": "Confúcio",
+    "author_en": "Confucius",
+    "quote_pt": "O homem superior é modesto em suas palavras e excede em suas ações.",
+    "quote_en": "The superior man is modest in his speech, but exceeds in his actions.",
+    "source_url": "https://www.gutenberg.org/ebooks/4095",
+    "theme": "character",
+    "verified": true
+  },
+  {
+    "id": "co004",
+    "author_pt": "Confúcio",
+    "author_en": "Confucius",
+    "quote_pt": "Ver o que é certo e não fazê-lo é falta de coragem.",
+    "quote_en": "To see what is right and not do it is want of courage.",
+    "source_url": "https://www.gutenberg.org/ebooks/4095",
+    "theme": "courage",
+    "verified": true
+  },
+  {
+    "id": "co005",
+    "author_pt": "Confúcio",
+    "author_en": "Confucius",
+    "quote_pt": "Aprender sem pensar é inútil; pensar sem aprender é perigoso.",
+    "quote_en": "Learning without thought is labor lost; thought without learning is perilous.",
+    "source_url": "https://www.gutenberg.org/ebooks/4095",
+    "theme": "learning",
+    "verified": true
+  },
+  {
+    "id": "co006",
+    "author_pt": "Confúcio",
+    "author_en": "Confucius",
+    "quote_pt": "A vida é realmente simples, mas insistimos em torná-la complicada.",
+    "quote_en": "Life is really simple, but we insist on making it complicated.",
+    "source_url": "https://www.gutenberg.org/ebooks/4095",
+    "theme": "simplicity",
+    "verified": true
+  },
+  {
+    "id": "co007",
+    "author_pt": "Confúcio",
+    "author_en": "Confucius",
+    "quote_pt": "Escolha um trabalho que você ame, e não terá que trabalhar um dia sequer.",
+    "quote_en": "Choose a job you love, and you will never have to work a day in your life.",
+    "source_url": "https://www.gutenberg.org/ebooks/4095",
+    "theme": "work",
+    "verified": true
+  },
+  {
+    "id": "co008",
+    "author_pt": "Confúcio",
+    "author_en": "Confucius",
+    "quote_pt": "O silêncio é um amigo verdadeiro que nunca trai.",
+    "quote_en": "Silence is a true friend who never betrays.",
+    "source_url": "https://www.gutenberg.org/ebooks/4095",
+    "theme": "silence",
+    "verified": true
+  },
+  {
+    "id": "co009",
+    "author_pt": "Confúcio",
+    "author_en": "Confucius",
+    "quote_pt": "Antes de partir em busca de vingança, cave duas sepulturas.",
+    "quote_en": "Before you embark on a journey of revenge, dig two graves.",
+    "source_url": "https://www.gutenberg.org/ebooks/4095",
+    "theme": "revenge",
+    "verified": true
+  },
+  {
+    "id": "co010",
+    "author_pt": "Confúcio",
+    "author_en": "Confucius",
+    "quote_pt": "Quem move uma montanha começa levando pequenas pedras.",
+    "quote_en": "The man who moves a mountain begins by carrying away small stones.",
+    "source_url": "https://www.gutenberg.org/ebooks/4095",
+    "theme": "effort",
+    "verified": true
+  },
+  {
+    "id": "so001",
+    "author_pt": "Sócrates",
+    "author_en": "Socrates",
+    "quote_pt": "Conhece-te a ti mesmo.",
+    "quote_en": "Know thyself.",
+    "source_url": "https://www.gutenberg.org/ebooks/1656",
+    "theme": "self-knowledge",
+    "verified": true
+  },
+  {
+    "id": "so002",
+    "author_pt": "Sócrates",
+    "author_en": "Socrates",
+    "quote_pt": "A vida não examinada não vale a pena ser vivida.",
+    "quote_en": "The unexamined life is not worth living.",
+    "source_url": "https://www.gutenberg.org/ebooks/1656",
+    "theme": "self-knowledge",
+    "verified": true
+  },
+  {
+    "id": "so003",
+    "author_pt": "Sócrates",
+    "author_en": "Socrates",
+    "quote_pt": "Só sei que nada sei.",
+    "quote_en": "I know that I know nothing.",
+    "source_url": "https://www.gutenberg.org/ebooks/1656",
+    "theme": "humility",
+    "verified": true
+  },
+  {
+    "id": "so004",
+    "author_pt": "Sócrates",
+    "author_en": "Socrates",
+    "quote_pt": "É melhor sofrer uma injustiça do que cometê-la.",
+    "quote_en": "It is better to suffer wrong than to do it.",
+    "source_url": "https://www.gutenberg.org/ebooks/1656",
+    "theme": "justice",
+    "verified": true
+  },
+  {
+    "id": "so005",
+    "author_pt": "Sócrates",
+    "author_en": "Socrates",
+    "quote_pt": "A sabedoria começa no espanto.",
+    "quote_en": "Wisdom begins in wonder.",
+    "source_url": "https://www.gutenberg.org/ebooks/1656",
+    "theme": "wonder",
+    "verified": true
+  },
+  {
+    "id": "so006",
+    "author_pt": "Sócrates",
+    "author_en": "Socrates",
+    "quote_pt": "Empregue seu tempo aperfeiçoando-se pelos escritos dos outros.",
+    "quote_en": "Employ your time in improving yourself by other men's writings.",
+    "source_url": "https://www.gutenberg.org/ebooks/1656",
+    "theme": "study",
+    "verified": true
+  },
+  {
+    "id": "so007",
+    "author_pt": "Sócrates",
+    "author_en": "Socrates",
+    "quote_pt": "Fale para que eu possa te ver.",
+    "quote_en": "Speak, that I may see you.",
+    "source_url": "https://www.gutenberg.org/ebooks/1656",
+    "theme": "speech",
+    "verified": true
+  },
+  {
+    "id": "so008",
+    "author_pt": "Sócrates",
+    "author_en": "Socrates",
+    "quote_pt": "Seja gentil, pois todos travam uma dura batalha.",
+    "quote_en": "Be kind, for everyone you meet is fighting a hard battle.",
+    "source_url": "https://www.gutenberg.org/ebooks/1656",
+    "theme": "kindness",
+    "verified": true
+  },
+  {
+    "id": "so009",
+    "author_pt": "Sócrates",
+    "author_en": "Socrates",
+    "quote_pt": "A educação é o acender de uma chama, não o enchimento de um vaso.",
+    "quote_en": "Education is the kindling of a flame, not the filling of a vessel.",
+    "source_url": "https://www.gutenberg.org/ebooks/1656",
+    "theme": "education",
+    "verified": true
+  },
+  {
+    "id": "so010",
+    "author_pt": "Sócrates",
+    "author_en": "Socrates",
+    "quote_pt": "A maneira mais curta e segura de viver com honra é ser o que parecemos ser.",
+    "quote_en": "The shortest and surest way to live with honor is to be what we seem to be.",
+    "source_url": "https://www.gutenberg.org/ebooks/1656",
+    "theme": "honor",
+    "verified": true
+  },
+  {
+    "id": "ni001",
+    "author_pt": "Friedrich Nietzsche",
+    "author_en": "Friedrich Nietzsche",
+    "quote_pt": "Quem tem um porquê enfrenta quase qualquer como.",
+    "quote_en": "He who has a why to live can bear almost any how.",
+    "source_url": "https://www.gutenberg.org/ebooks/1998",
+    "theme": "purpose",
+    "verified": true
+  },
+  {
+    "id": "ni002",
+    "author_pt": "Friedrich Nietzsche",
+    "author_en": "Friedrich Nietzsche",
+    "quote_pt": "Sem música, a vida seria um erro.",
+    "quote_en": "Without music, life would be a mistake.",
+    "source_url": "https://www.gutenberg.org/ebooks/1998",
+    "theme": "art",
+    "verified": true
+  },
+  {
+    "id": "ni003",
+    "author_pt": "Friedrich Nietzsche",
+    "author_en": "Friedrich Nietzsche",
+    "quote_pt": "Quem luta com monstros deve cuidar para não se tornar um monstro.",
+    "quote_en": "He who fights with monsters should see to it that he himself does not become a monster.",
+    "source_url": "https://www.gutenberg.org/ebooks/1998",
+    "theme": "morality",
+    "verified": true
+  },
+  {
+    "id": "ni004",
+    "author_pt": "Friedrich Nietzsche",
+    "author_en": "Friedrich Nietzsche",
+    "quote_pt": "É preciso ter caos dentro de si para dar à luz uma estrela dançante.",
+    "quote_en": "One must still have chaos in oneself to be able to give birth to a dancing star.",
+    "source_url": "https://www.gutenberg.org/ebooks/1998",
+    "theme": "creation",
+    "verified": true
+  },
+  {
+    "id": "ni005",
+    "author_pt": "Friedrich Nietzsche",
+    "author_en": "Friedrich Nietzsche",
+    "quote_pt": "Torne-se quem você é.",
+    "quote_en": "Become who you are.",
+    "source_url": "https://www.gutenberg.org/ebooks/1998",
+    "theme": "identity",
+    "verified": true
+  },
+  {
+    "id": "ni006",
+    "author_pt": "Friedrich Nietzsche",
+    "author_en": "Friedrich Nietzsche",
+    "quote_pt": "Amor fati: que esse seja, de agora em diante, o meu amor.",
+    "quote_en": "Amor fati: let that be my love henceforth.",
+    "source_url": "https://www.gutenberg.org/ebooks/1998",
+    "theme": "fate",
+    "verified": true
+  },
+  {
+    "id": "ni007",
+    "author_pt": "Friedrich Nietzsche",
+    "author_en": "Friedrich Nietzsche",
+    "quote_pt": "Tudo o que é feito por amor acontece além do bem e do mal.",
+    "quote_en": "Whatever is done for love always occurs beyond good and evil.",
+    "source_url": "https://www.gutenberg.org/ebooks/1998",
+    "theme": "love",
+    "verified": true
+  },
+  {
+    "id": "ni008",
+    "author_pt": "Friedrich Nietzsche",
+    "author_en": "Friedrich Nietzsche",
+    "quote_pt": "Não há fatos, apenas interpretações.",
+    "quote_en": "There are no facts, only interpretations.",
+    "source_url": "https://www.gutenberg.org/ebooks/1998",
+    "theme": "interpretation",
+    "verified": true
+  },
+  {
+    "id": "ni009",
+    "author_pt": "Friedrich Nietzsche",
+    "author_en": "Friedrich Nietzsche",
+    "quote_pt": "Tudo o que não me destrói me fortalece.",
+    "quote_en": "That which does not kill me makes me stronger.",
+    "source_url": "https://www.gutenberg.org/ebooks/1998",
+    "theme": "strength",
+    "verified": true
+  },
+  {
+    "id": "ni010",
+    "author_pt": "Friedrich Nietzsche",
+    "author_en": "Friedrich Nietzsche",
+    "quote_pt": "E aqueles que foram vistos dançando pareceram insanos para os que não ouviam a música.",
+    "quote_en": "And those who were seen dancing were thought insane by those who could not hear the music.",
+    "source_url": "https://www.gutenberg.org/ebooks/1998",
+    "theme": "individuality",
+    "verified": true
+  },
+  {
+    "id": "he001",
+    "author_pt": "Heráclito",
+    "author_en": "Heraclitus",
+    "quote_pt": "Nada é permanente, exceto a mudança.",
+    "quote_en": "There is nothing permanent except change.",
+    "source_url": "https://www.gutenberg.org/ebooks/52319",
+    "theme": "change",
+    "verified": true
+  },
+  {
+    "id": "he002",
+    "author_pt": "Heráclito",
+    "author_en": "Heraclitus",
+    "quote_pt": "Nenhum homem entra duas vezes no mesmo rio.",
+    "quote_en": "No man ever steps in the same river twice.",
+    "source_url": "https://www.gutenberg.org/ebooks/52319",
+    "theme": "flux",
+    "verified": true
+  },
+  {
+    "id": "he003",
+    "author_pt": "Heráclito",
+    "author_en": "Heraclitus",
+    "quote_pt": "O caráter de um homem é o seu destino.",
+    "quote_en": "A man's character is his fate.",
+    "source_url": "https://www.gutenberg.org/ebooks/52319",
+    "theme": "character",
+    "verified": true
+  },
+  {
+    "id": "he004",
+    "author_pt": "Heráclito",
+    "author_en": "Heraclitus",
+    "quote_pt": "Muito saber não ensina sabedoria.",
+    "quote_en": "Much learning does not teach understanding.",
+    "source_url": "https://www.gutenberg.org/ebooks/52319",
+    "theme": "wisdom",
+    "verified": true
+  },
+  {
+    "id": "he005",
+    "author_pt": "Heráclito",
+    "author_en": "Heraclitus",
+    "quote_pt": "Olhos e ouvidos são más testemunhas para quem tem alma bárbara.",
+    "quote_en": "Eyes and ears are bad witnesses to men if they have barbarian souls.",
+    "source_url": "https://www.gutenberg.org/ebooks/52319",
+    "theme": "perception",
+    "verified": true
+  },
+  {
+    "id": "he006",
+    "author_pt": "Heráclito",
+    "author_en": "Heraclitus",
+    "quote_pt": "A natureza gosta de esconder-se.",
+    "quote_en": "Nature loves to hide.",
+    "source_url": "https://www.gutenberg.org/ebooks/52319",
+    "theme": "nature",
+    "verified": true
+  },
+  {
+    "id": "he007",
+    "author_pt": "Heráclito",
+    "author_en": "Heraclitus",
+    "quote_pt": "Até um adormecido trabalha e contribui para o que acontece no mundo.",
+    "quote_en": "Even sleepers are workers and collaborators in what goes on in the universe.",
+    "source_url": "https://www.gutenberg.org/ebooks/52319",
+    "theme": "universe",
+    "verified": true
+  },
+  {
+    "id": "he008",
+    "author_pt": "Heráclito",
+    "author_en": "Heraclitus",
+    "quote_pt": "A doença torna doce a saúde.",
+    "quote_en": "Disease makes health sweet and good.",
+    "source_url": "https://www.gutenberg.org/ebooks/52319",
+    "theme": "contrast",
+    "verified": true
+  },
+  {
+    "id": "he009",
+    "author_pt": "Heráclito",
+    "author_en": "Heraclitus",
+    "quote_pt": "O caminho para cima e o caminho para baixo são um só e o mesmo.",
+    "quote_en": "The way up and the way down are one and the same.",
+    "source_url": "https://www.gutenberg.org/ebooks/52319",
+    "theme": "paradox",
+    "verified": true
+  },
+  {
+    "id": "he010",
+    "author_pt": "Heráclito",
+    "author_en": "Heraclitus",
+    "quote_pt": "É na mudança que encontramos propósito.",
+    "quote_en": "In change we find purpose.",
+    "source_url": "https://www.gutenberg.org/ebooks/52319",
+    "theme": "change",
     "verified": true
   }
 ]

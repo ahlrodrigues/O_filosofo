@@ -1,166 +1,130 @@
-import json
 import os
+import json
 import random
-import sys
-import uuid
-from datetime import datetime, timezone
+import requests
 from pathlib import Path
 
-import requests
+# =========================
+# Configurações
+# =========================
 
-DATA_FILE = Path(os.getenv('QUOTES_FILE', 'quotes_bilingue.json'))
-STATE_FILE = Path(os.getenv('STATE_FILE', 'state.json'))
-MASTODON_BASE_URL = os.getenv('MASTODON_BASE_URL', '').rstrip('/')
-MASTODON_TOKEN = os.getenv('MASTODON_TOKEN', '')
-DEFAULT_VISIBILITY = os.getenv('MASTODON_VISIBILITY', 'public')
-DEFAULT_TAGS = os.getenv('MASTODON_TAGS', '#filosofia #philosophy').strip()
-MODE = os.getenv('BOT_MODE', 'alternate')  # alternate | pt | en | bilingual
-DRY_RUN = os.getenv('DRY_RUN', 'false').lower() == 'true'
-TIMEOUT = int(os.getenv('HTTP_TIMEOUT', '30'))
+MASTODON_TOKEN = os.getenv("MASTODON_TOKEN")
+MASTODON_BASE_URL = os.getenv("MASTODON_BASE_URL")
 
+STATE_FILE = Path("state.json")
+QUOTES_FILE = Path("quotes_bilingue.json")
 
-def load_json(path: Path):
-    with path.open('r', encoding='utf-8') as f:
+# =========================
+# Funções de estado
+# =========================
+
+def load_state():
+    if STATE_FILE.exists():
+        with open(STATE_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {
+        "used_indexes": [],
+        "last_language": "en"
+    }
+
+def save_state(state):
+    with open(STATE_FILE, "w", encoding="utf-8") as f:
+        json.dump(state, f, ensure_ascii=False, indent=2)
+
+# =========================
+# Carregar frases
+# =========================
+
+def load_quotes():
+    with open(QUOTES_FILE, "r", encoding="utf-8") as f:
         return json.load(f)
 
+# =========================
+# Escolher frase
+# =========================
 
-def save_json(path: Path, payload):
-    with path.open('w', encoding='utf-8') as f:
-        json.dump(payload, f, ensure_ascii=False, indent=2)
+def pick_quote(quotes, state):
+    used = set(state["used_indexes"])
+    available = [i for i in range(len(quotes)) if i not in used]
 
-
-def ensure_state() -> dict:
-    if STATE_FILE.exists():
-        return load_json(STATE_FILE)
-    state = {
-        'last_language': None,
-        'posted_ids': [],
-        'history': []
-    }
-    save_json(STATE_FILE, state)
-    return state
-
-
-def normalize_quotes(raw_quotes):
-    quotes = []
-    for i, q in enumerate(raw_quotes, start=1):
-        if not q.get('verified', False):
-            continue
-        q = dict(q)
-        q.setdefault('id', f'q{i:03d}')
-        quotes.append(q)
-    if not quotes:
-        raise ValueError('Nenhuma citação válida encontrada no arquivo JSON.')
-    return quotes
-
-
-def choose_language(state: dict) -> str:
-    if MODE in {'pt', 'en', 'bilingual'}:
-        return MODE
-    return 'en' if state.get('last_language') == 'pt' else 'pt'
-
-
-def choose_quote(quotes: list, state: dict) -> dict:
-    posted_ids = set(state.get('posted_ids', []))
-    available = [q for q in quotes if q['id'] not in posted_ids]
-
+    # Reset se todas usadas
     if not available:
-        state['posted_ids'] = []
-        available = quotes[:]
+        print("🔄 Resetando lista de frases")
+        state["used_indexes"] = []
+        available = list(range(len(quotes)))
 
-    return random.choice(available)
+    index = random.choice(available)
+    state["used_indexes"].append(index)
 
+    # Alternar idioma
+    state["last_language"] = "pt" if state["last_language"] == "en" else "en"
+    language = state["last_language"]
 
-def build_post_text(quote: dict, language: str) -> str:
-    author = quote['author']
-    source_url = quote.get('source_url', '').strip()
+    return quotes[index], language, state
 
-    if language == 'pt':
-        text = f'“{quote["quote_pt"]}”\n\n{author}'
-    elif language == 'en':
-        text = f'“{quote["quote_en"]}”\n\n{author}'
+# =========================
+# Montar post
+# =========================
+
+def build_post(quote, language):
+    if language == "pt":
+        text = quote["quote_pt"]
+        author = quote["author_pt"]
     else:
-        text = (
-            f'PT\n“{quote["quote_pt"]}”\n\n'
-            f'EN\n“{quote["quote_en"]}”\n\n'
-            f'{author}'
-        )
+        text = quote["quote_en"]
+        author = quote["author_en"]
 
-    if source_url:
-        text += f'\n{source_url}'
+    post = f'“{text}”\n\n{author}\n{quote["source_url"]}'
 
-    if DEFAULT_TAGS:
-        text += f'\n\n{DEFAULT_TAGS}'
+    return post, language
 
-    return text
+# =========================
+# Postar no Mastodon
+# =========================
 
-
-def post_to_mastodon(status_text: str, language: str) -> dict:
-    if not MASTODON_BASE_URL or not MASTODON_TOKEN:
-        raise EnvironmentError('Defina MASTODON_BASE_URL e MASTODON_TOKEN no ambiente.')
+def post_to_mastodon(text, language):
+    url = f"{MASTODON_BASE_URL}/api/v1/statuses"
 
     headers = {
-        'Authorization': f'Bearer {MASTODON_TOKEN}',
-        'Idempotency-Key': str(uuid.uuid4()),
+        "Authorization": f"Bearer {MASTODON_TOKEN}"
     }
+
     data = {
-        'status': status_text,
-        'visibility': DEFAULT_VISIBILITY,
+        "status": text,
+        "language": language,
+        "visibility": "public"
     }
-    if language in {'pt', 'en'}:
-        data['language'] = language
 
-    response = requests.post(
-        f'{MASTODON_BASE_URL}/api/v1/statuses',
-        headers=headers,
-        data=data,
-        timeout=TIMEOUT,
-    )
-    response.raise_for_status()
-    return response.json()
+    response = requests.post(url, headers=headers, data=data)
 
+    if response.status_code == 200:
+        print("✅ Post publicado com sucesso")
+    else:
+        print("❌ Erro ao postar:", response.status_code, response.text)
+
+# =========================
+# Execução principal
+# =========================
 
 def main():
-    if not DATA_FILE.exists():
-        raise FileNotFoundError(f'Arquivo de citações não encontrado: {DATA_FILE}')
+    if not MASTODON_TOKEN or not MASTODON_BASE_URL:
+        raise Exception("Variáveis de ambiente não configuradas")
 
-    raw_quotes = load_json(DATA_FILE)
-    quotes = normalize_quotes(raw_quotes)
-    state = ensure_state()
+    state = load_state()
+    quotes = load_quotes()
 
-    language = choose_language(state)
-    quote = choose_quote(quotes, state)
-    status_text = build_post_text(quote, language)
+    quote, language, state = pick_quote(quotes, state)
 
-    print('--- PREVIEW ---')
-    print(status_text)
-    print('---------------')
+    post_text, language = build_post(quote, language)
 
-    if DRY_RUN:
-        print('DRY_RUN=true, nada foi publicado.')
-        return
+    print("\n📢 Post a ser enviado:\n")
+    print(post_text)
 
-    result = post_to_mastodon(status_text, language)
+    post_to_mastodon(post_text, language)
 
-    state['last_language'] = language if language in {'pt', 'en'} else state.get('last_language')
-    state['posted_ids'] = list(dict.fromkeys(state.get('posted_ids', []) + [quote['id']]))
-    state['history'].append({
-        'id': quote['id'],
-        'author': quote['author'],
-        'language': language,
-        'posted_at_utc': datetime.now(timezone.utc).isoformat(),
-        'mastodon_status_id': result.get('id'),
-        'url': result.get('url'),
-    })
-    save_json(STATE_FILE, state)
+    save_state(state)
 
-    print('Publicado com sucesso!')
-    print(result.get('url', 'Sem URL retornada pela API.'))
+# =========================
 
-
-if __name__ == '__main__':
-    try:
-        main()
-    except Exception as exc:
-        print(f'Erro: {exc}', file=sys.stderr)
-        sys.exit(1)
+if __name__ == "__main__":
+    main()

@@ -3,8 +3,11 @@ name: O Filosofia
 
 on:
   schedule:
-    - cron: "0 11 * * *"  # 8h Brasil
+    - cron: "0 11 * * *"
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   postar:
@@ -13,6 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -27,3 +32,14 @@ jobs:
           MASTODON_TOKEN: ${{ secrets.MASTODON_TOKEN }}
           MASTODON_BASE_URL: ${{ secrets.MASTODON_BASE_URL }}
         run: python bot_mastodon_filosofia.py
+
+      - name: Commit state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add state.json
+          git diff --cached --quiet || git commit -m "Atualiza estado das frases"
+
+      - name: Push state
+        run: git push
