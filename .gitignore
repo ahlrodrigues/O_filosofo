@@ -1,0 +1,7 @@
+O filosofo.txt
+.env
+.venv/
+__pycache__/
+*.pyc
+card.png
+card_teste.png
