@@ -18,9 +18,9 @@ O arquivo `quotes_bilingue.json` deve conter itens assim:
 ```json
 {
   "id": "q001",
-  "author_pt": "Marco Aurélio",
+  "author_pt_br": "Marco Aurélio",
   "author_en": "Marcus Aurelius",
-  "quote_pt": "Você tem poder sobre sua mente, não sobre os acontecimentos externos.",
+  "quote_pt_br": "Você tem poder sobre sua mente, não sobre os acontecimentos externos.",
   "quote_en": "You have power over your mind, not outside events.",
   "source_url": "https://www.gutenberg.org/ebooks/2680",
   "theme": "self-control",

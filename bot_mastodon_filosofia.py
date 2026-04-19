@@ -136,8 +136,8 @@ def build_post(quote, language):
     source_url = (quote.get("source_url") or "").strip()
 
     if language == "bilingual":
-        text_pt = quote["quote_pt"]
-        author_pt = quote["author_pt"]
+        text_pt = quote["quote_pt_br"]
+        author_pt = quote["author_pt_br"]
         text_en = quote["quote_en"]
         author_en = quote["author_en"]
         status = f'“{text_pt}”\n— {author_pt}\n\n“{text_en}”\n— {author_en}'
@@ -149,8 +149,8 @@ def build_post(quote, language):
         return status, None
 
     if language == "pt_br":
-        text = quote["quote_pt"]
-        author = quote["author_pt"]
+        text = quote["quote_pt_br"]
+        author = quote["author_pt_br"]
     else:
         text = quote["quote_en"]
         author = quote["author_en"]
