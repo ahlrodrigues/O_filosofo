@@ -20,6 +20,10 @@ DRY_RUN = os.getenv("DRY_RUN", "false").strip().lower() in {"1", "true", "yes", 
 TAG_PT_BR = os.getenv("TAG_PT_BR", "#filosofia").strip() or "#filosofia"
 TAG_EN = os.getenv("TAG_EN", "#philosophy").strip() or "#philosophy"
 
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "").strip()
+LOW_QUOTES_THRESHOLD = int(os.getenv("LOW_QUOTES_THRESHOLD", "20").strip() or "20")
+
 
 def load_state():
     if STATE_FILE.exists():
@@ -206,6 +210,31 @@ def validate_env():
         raise EnvironmentError("MASTODON_BASE_URL não configurado.")
 
 
+def send_telegram_message(message: str):
+    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+        return
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    data = {"chat_id": TELEGRAM_CHAT_ID, "text": message}
+    try:
+        response = requests.post(url, json=data, timeout=30)
+        if response.status_code != 200:
+            print(f"⚠️ Erro ao enviar Telegram: {response.status_code} - {response.text}")
+    except Exception as e:
+        print(f"⚠️ Erro ao enviar Telegram: {e}")
+
+
+def check_low_quotes(quotes, state):
+    used_ids = set(state.get("used_ids", []))
+    available = [q for q in quotes if q.get("id") and q.get("id") not in used_ids]
+    remaining = len(available)
+    
+    if remaining > 0 and remaining < LOW_QUOTES_THRESHOLD:
+        file_name = QUOTES_FILE.name or "quotes"
+        message = f"⚠️ Atenção! Restam apenas {remaining} quotes em {file_name}"
+        print(f"\n{message}")
+        send_telegram_message(message)
+
+
 def main():
     if not DRY_RUN:
         validate_env()
@@ -220,6 +249,8 @@ def main():
     quotes = load_quotes()
 
     state = migrate_state_if_needed(state, quotes)
+
+    check_low_quotes(quotes, state)
 
     print("🎯 Escolhendo frase...")
     quote, language, state = pick_quote(quotes, state)

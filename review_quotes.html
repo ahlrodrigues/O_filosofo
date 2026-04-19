@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revisar Quotes - O Filosofia</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { color: #333; }
+        .upload-box { background: white; padding: 30px; border-radius: 8px; text-align: center; border: 2px dashed #ccc; margin-bottom: 20px; }
+        .stats { background: #e8f5e9; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        .quote-card { background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .quote-card.verified { border-left: 4px solid #4caf50; }
+        .quote-card.pending { border-left: 4px solid #ff9800; }
+        .lang-row { margin-bottom: 15px; }
+        .lang-label { font-weight: bold; color: #666; font-size: 12px; text-transform: uppercase; margin-bottom: 5px; }
+        .quote-text { font-size: 16px; line-height: 1.5; color: #333; }
+        textarea { width: 100%; padding: 10px; font-size: 14px; border: 1px solid #ddd; border-radius: 4px; resize: vertical; min-height: 60px; font-family: inherit; }
+        .author { color: #666; font-style: italic; margin-top: 8px; }
+        .theme { display: inline-block; background: #e3f2fd; padding: 4px 8px; border-radius: 4px; font-size: 12px; color: #1976d2; margin-top: 10px; }
+        .id { font-family: monospace; color: #999; font-size: 12px; }
+        .actions { margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
+        button { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        .btn-verify { background: #4caf50; color: white; }
+        .btn-all { background: #607d8b; color: white; }
+        .btn-download { background: #9c27b0; color: white; padding: 12px 24px; font-size: 16px; }
+        .nav { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .hidden { display: none; }
+        .step-box { background: #fff3e0; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .step-title { font-weight: bold; color: #e65100; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Revisar Quotes - O Filosofia</h1>
+        
+        <!-- Step 1: Carregar arquivos -->
+        <div class="step-box" id="step1">
+            <div class="step-title">Passo 1: Carregar novas quotes</div>
+            
+            <div>
+                <strong>Novas quotes (quotes_new.json):</strong>
+                <input type="file" id="newFileInput" accept=".json" onchange="loadNewFile(event)">
+                <p style="color:#999;font-size:12px;">ou arraste aqui ↓</p>
+            </div>
+            
+<div style="margin-top:15px;padding-top:15px;border-top:1px solid #ddd;">
+                <strong>GitHub Token:</strong>
+                <input type="password" id="ghToken" placeholder="ghp_..." style="width:300px;padding:8px;">
+                <span style="color:#999;font-size:12px;">(salvo no navegador)</span>
+            </div>
+            
+            <button onclick="startProcessing()" style="background:#2196f3;color:white;padding:12px 24px;font-size:16px;margin-top:15px;">
+                Continuar →
+            </button>
+        </div>
+        
+        <!-- Step 2: Revisar -->
+        <div class="hidden" id="step2">
+            <div class="step-title">Passo 2: Revisar novas quotes</div>
+            
+            <div class="stats" id="stats"></div>
+            
+            <div class="nav">
+                <button onclick="showAll()">Todas</button>
+                <button onclick="showPending()">Pendentes</button>
+                <button onclick="showVerified()">Verificadas</button>
+                <button onclick="doMerge()" style="background:#9c27b0;color:white;margin-left:auto;">
+                    📥 Merge + Baixar
+                </button>
+                <button onclick="showPushCmd()" style="background:#4caf50;color:white;">
+                    📤 Revisar + Push
+                </button>
+            </div>
+            
+            <div id="quotesList"></div>
+        </div>
+        
+        <!-- Step 3: Baixar -->
+        <div class="hidden" id="step3">
+            <div class="step-title">Passo 3: Resultado</div>
+            <div style="background: #e8f5e9; padding: 20px; border-radius: 8px;">
+                <p id="mergeInfo"></p>
+                <button onclick="downloadMerged()" class="btn-download">
+                    ⬇️ Baixar quotes_bilingue.json (mesclado)
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let mainQuotes = [];
+        let newQuotes = [];
+        
+        function loadMainFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    mainQuotes = JSON.parse(e.target.result);
+                    checkReady();
+                } catch(err) {
+                    alert('Erro: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+        
+        function loadNewFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    newQuotes = JSON.parse(e.target.result);
+                    loadFromStorage();
+                    checkReady();
+                } catch(err) {
+                    alert('Erro: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+        
+        function startProcessing() {
+            localStorage.setItem('gh_token', document.getElementById('ghToken').value);
+            checkReady();
+        }
+        
+        function dropHandler(event) {
+            event.preventDefault();
+            const file = event.dataTransfer.files[0];
+            if (!file || !file.name.endsWith('.json')) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    newQuotes = JSON.parse(e.target.result);
+                    loadFromStorage();
+                    checkReady();
+                } catch(err) {}
+            };
+            reader.readAsText(file);
+        }
+        
+        function loadFromStorage() {
+            const saved = localStorage.getItem('quotes_review_new');
+            if (!saved) return;
+            try {
+                const savedQuotes = JSON.parse(saved);
+                const savedIds = new Set(savedQuotes.filter(q => q.verified).map(q => q.id));
+                newQuotes.forEach(q => {
+                    if (savedIds.has(q.id)) q.verified = true;
+                });
+            } catch(e) {}
+        }
+        
+        async function fetchMainFromGitHub(token) {
+            const resp = await fetch('https://raw.githubusercontent.com/ahlrodrigues/O_filosofo/main/quotes_bilingue.json');
+            if (!resp.ok) {
+                throw new Error('Erro: ' + resp.status);
+            }
+            const content = await resp.text();
+            return JSON.parse(content);
+        }
+        
+        async function checkReady() {
+            if (!newQuotes.length) return;
+            
+            let token = document.getElementById('ghToken').value || localStorage.getItem('gh_token');
+            if (!token) {
+                alert('Cole o GitHub Token para continuar');
+                return;
+            }
+            localStorage.setItem('gh_token', token);
+            
+            try {
+                mainQuotes = await fetchMainFromGitHub(token);
+            } catch(e) {
+                alert('Erro ao buscar quotes_bilingue.json: ' + e.message);
+                return;
+            }
+            
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
+            updateStats();
+            renderQuotes(newQuotes);
+        }
+        
+        function updateStats() {
+            const v = newQuotes.filter(q => q.verified).length;
+            document.getElementById('stats').innerHTML = `
+                Principal: ${mainQuotes.length} | Novas: ${newQuotes.length} | Verificadas: ${v}
+            `;
+        }
+        
+        function renderQuotes(quotes) {
+            const container = document.getElementById('quotesList');
+            container.innerHTML = quotes.map((q, i) => {
+                const idx = newQuotes.indexOf(q);
+                return `
+                <div class="quote-card ${q.verified ? 'verified' : 'pending'}">
+                    <div class="id">${q.id}</div>
+                    <div class="lang-row">
+                        <div class="lang-label">English</div>
+                        <div class="quote-text">${escapeHtml(q.quote_en)}</div>
+                        <div class="author">— ${escapeHtml(q.author_en)}</div>
+                    </div>
+                    <div class="lang-row">
+                        <div class="lang-label">Português (BR)</div>
+                        <textarea onchange="updateQuote(${idx}, this.value)">${escapeHtml(q.quote_pt_br)}</textarea>
+                        <input type="text" value="${escapeHtml(q.author_pt_br)}" onchange="updateAuthor(${idx}, this.value)" 
+                               style="width:100%;padding:8px;margin-top:5px;border:1px solid #ddd;border-radius:4px;">
+                    </div>
+                    <span class="theme">${q.theme || 'filosofia'}</span>
+                    <div class="actions">
+                        <button class="btn-verify" onclick="toggleVerify(${idx})">
+                            ${q.verified ? '✓ Verificada' : 'Marcar Verificada'}
+                        </button>
+                    </div>
+                </div>
+            `}).join('');
+        }
+        
+        function escapeHtml(t) {
+            return String(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        }
+        
+        function updateQuote(idx, val) { newQuotes[idx].quote_pt_br = val; saveToStorage(); }
+        function updateAuthor(idx, val) { newQuotes[idx].author_pt_br = val; saveToStorage(); }
+        
+        function toggleVerify(idx) {
+            newQuotes[idx].verified = !newQuotes[idx].verified;
+            updateStats();
+            renderQuotes(newQuotes);
+            saveToStorage();
+        }
+        
+        function showAll() { renderQuotes(newQuotes); }
+        function showPending() { renderQuotes(newQuotes.filter(q => !q.verified)); }
+        function showVerified() { renderQuotes(newQuotes.filter(q => q.verified)); }
+        
+        function saveToStorage() {
+            localStorage.setItem('quotes_review_new', JSON.stringify(newQuotes));
+        }
+        
+        function downloadMerged() {
+            doMerge();
+        }
+        
+        function doMerge() {
+            const verified = newQuotes.filter(q => q.verified);
+            if (!verified.length) {
+                alert('Nenhuma quote verificada! Revise e marque as traduções primeiro.');
+                return;
+            }
+            const merged = [...mainQuotes, ...verified];
+            
+            document.getElementById('step3').classList.remove('hidden');
+            document.getElementById('mergeInfo').innerHTML = `
+                Principal: ${mainQuotes.length}<br>
+                Novas verificadas: ${verified.length}<br>
+                Total: ${merged.length}
+            `;
+            
+            const data = JSON.stringify(merged, null, 2);
+            const blob = new Blob([data], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'quotes_bilingue.json';
+            a.click();
+            
+            localStorage.removeItem('quotes_review_new');
+        }
+        
+        async function showPushCmd() {
+            let token = document.getElementById('ghToken').value || localStorage.getItem('gh_token');
+            if (!token) {
+                alert('Cole o GitHub Token primeiro (Settings → Developer settings → Personal access tokens)');
+                return;
+            }
+            if (document.getElementById('ghToken').value) {
+                localStorage.setItem('gh_token', token);
+            }
+            
+            const btn = event.target;
+            btn.disabled = true;
+            btn.textContent = '⏳ Enviando...';
+            
+            const verified = newQuotes.filter(q => q.verified);
+            if (!verified.length) {
+                alert('Nenhuma quote verificada!');
+                btn.disabled = false;
+                btn.textContent = '📤 Commit + Push';
+                return;
+            }
+            
+            const merged = [...mainQuotes, ...verified];
+            const content = btoa(unescape(encodeURIComponent(JSON.stringify(merged, null, 2))));
+            const defaultMsg = `Adds ${verified.length} new verified quotes`;
+            const message = confirm(`Commit: "${defaultMsg}"\n\nConfirmar?`) ? defaultMsg : prompt('Mensagem do commit:', defaultMsg);
+            
+            try {
+                const shaResp = await fetch('https://api.github.com/repos/ahlrodrigues/O_filosofo/contents/quotes_bilingue.json', {
+                    headers: { 'Authorization': `token ${token}` }
+                });
+                const shaData = await shaResp.json();
+                const sha = shaData.sha;
+                
+                const pushResp = await fetch('https://api.github.com/repos/ahlrodrigues/O_filosofo/contents/quotes_bilingue.json', {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        content: content,
+                        sha: sha
+                    })
+                });
+                
+                if (pushResp.ok) {
+                    alert('✅ Pushado com sucesso!');
+                    localStorage.removeItem('quotes_review_new');
+                } else {
+                    const err = await pushResp.text();
+                    alert('❌ Erro: ' + err);
+                }
+            } catch(e) {
+                alert('❌ Erro: ' + e.message);
+            }
+            
+            btn.disabled = false;
+            btn.textContent = '📤 Commit + Push';
+        }
+        
+        document.getElementById('step1').ondrop = dropHandler;
+        document.getElementById('step1').ondragover = e => e.preventDefault();
+    </script>
+</body>
+</html>

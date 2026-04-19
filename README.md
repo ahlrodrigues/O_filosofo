@@ -96,6 +96,28 @@ Este repositório vem configurado para 2 execuções por dia (cron em UTC):
 - `0 11 * * *` (08:00 em America/Sao_Paulo) publica as citações de `quotes_bilingue.json` (estado em `state.json`)
 - `0 17 * * *` (14:00 em America/Sao_Paulo) publica as frases de humor de `quotes_humor_bilingue.json` (estado em `state_humor.json`)
 
+## Adicionar novas quotes
+
+### Fluxo atual ⚠️ PENDENTE
+
+> Problema: erro "NetworkError" ao buscar quotes_bilingue.json do GitHub via browser.
+
+### Fluxo alternativo (funcionando)
+
+1. Gerar novas quotes: `python fetch_quotes.py`
+2. Revisar traduções em `review_quotes.html`
+3. Marcar como verificadas
+4. Merge + Push automático
+
+### Passos detalhados
+
+1. Executar `python fetch_quotes.py` para gerar `quotes_new.json`
+2. Abrir `review_quotes.html` no navegador
+3. Carregar `quotes_new.json` e inserir GitHub Token
+4. Revisar/corrigir traduções
+5. Marcar como verificadas
+6. Clicar "Revisar + Push" para mesclar e fazer push
+
 ## Observações
 
 - No `schedule` do GitHub Actions, o cron é em UTC.
