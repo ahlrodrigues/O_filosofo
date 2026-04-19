@@ -56,7 +56,7 @@ jobs:
           MASTODON_TOKEN: ${{ secrets.MASTODON_TOKEN }}
           MASTODON_BASE_URL: ${{ secrets.MASTODON_BASE_URL }}
           DRY_RUN: ${{ github.event_name == 'schedule' && 'false' || inputs.dry_run }}
-          BOT_MODE: "alternate"
+          BOT_MODE: "bilingual"
           MASTODON_VISIBILITY: "public"
           QUOTES_FILE: "quotes_bilingue.json"
           STATE_FILE: "state.json"
