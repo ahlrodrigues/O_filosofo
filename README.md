@@ -9,7 +9,7 @@ Bot em Python para publicar citações filosóficas no Mastodon, alternando auto
 - evita repetir frases até esgotar o arquivo
 - pode marcar o idioma do post com o campo `language`
 - usa `Idempotency-Key` para ajudar a evitar duplicatas acidentais
-- mantém histórico local em `state.json`
+- mantém histórico local em um arquivo de estado (padrão: `state.json`)
 
 ## Estrutura esperada do JSON
 
@@ -73,6 +73,7 @@ Quando o preview estiver bom, troque para `DRY_RUN=false`.
 ## Configurações úteis
 
 - `QUOTES_FILE=...` permite trocar o arquivo de frases
+- `STATE_FILE=...` permite separar estados por “linha editorial” (ex.: `state.json` e `state_humor.json`)
 - `MASTODON_VISIBILITY=public|unlisted|private|direct`
 - `TAG_PT_BR=#filosofia` e `TAG_EN=#philosophy` adicionam hashtags por idioma
 
@@ -89,6 +90,11 @@ Exemplo para publicar todos os dias às 9h:
 ### GitHub Actions
 
 Também funciona bem em GitHub Actions, desde que você guarde o token nos secrets do repositório.
+
+Este repositório vem configurado para 2 execuções por dia (cron em UTC):
+
+- `0 11 * * *` (08:00 em America/Sao_Paulo) publica as citações de `quotes_bilingue.json` (estado em `state.json`)
+- `0 17 * * *` (14:00 em America/Sao_Paulo) publica as frases de humor de `quotes_humor_bilingue.json` (estado em `state_humor.json`)
 
 ## Observações
 

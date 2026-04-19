@@ -9,7 +9,8 @@ MASTODON_TOKEN = os.getenv("MASTODON_TOKEN", "").strip()
 MASTODON_BASE_URL = os.getenv("MASTODON_BASE_URL", "").strip().rstrip("/")
 MASTODON_VISIBILITY = os.getenv("MASTODON_VISIBILITY", "public").strip() or "public"
 
-STATE_FILE = Path("state.json")
+_raw_state_file = (os.getenv("STATE_FILE") or "").strip()
+STATE_FILE = Path(_raw_state_file or "state.json").expanduser()
 DEFAULT_QUOTES_FILE = Path("quotes_bilingue.json")
 _raw_quotes_file = (os.getenv("QUOTES_FILE") or "").strip()
 QUOTES_FILE = Path(_raw_quotes_file or str(DEFAULT_QUOTES_FILE)).expanduser()

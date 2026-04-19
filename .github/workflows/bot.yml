@@ -4,7 +4,23 @@ name: O Filosofia
 on:
   schedule:
     - cron: "0 11 * * *"
+    - cron: "0 17 * * *"
   workflow_dispatch:
+    inputs:
+      target:
+        description: "Qual publicação executar"
+        required: true
+        default: "both"
+        type: choice
+        options:
+          - quotes
+          - humor
+          - both
+      dry_run:
+        description: "DRY_RUN (só preview, sem publicar)"
+        required: true
+        default: true
+        type: boolean
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
@@ -29,18 +45,42 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Run bot
+
+      - name: Run bot (quotes)
+        if: >-
+          ${{
+            (github.event_name == 'schedule' && github.event.schedule == '0 11 * * *') ||
+            (github.event_name == 'workflow_dispatch' && (inputs.target == 'quotes' || inputs.target == 'both'))
+          }}
         env:
           MASTODON_TOKEN: ${{ secrets.MASTODON_TOKEN }}
           MASTODON_BASE_URL: ${{ secrets.MASTODON_BASE_URL }}
-          DRY_RUN: "false"
+          DRY_RUN: ${{ github.event_name == 'schedule' && 'false' || inputs.dry_run }}
           BOT_MODE: "alternate"
           MASTODON_VISIBILITY: "public"
           QUOTES_FILE: "quotes_bilingue.json"
+          STATE_FILE: "state.json"
           TAG_PT_BR: "#filosofia #citacoes"
           TAG_EN: "#philosophy #quotes"
         run: python bot_mastodon_filosofia.py
 
+      - name: Run bot (humor)
+        if: >-
+          ${{
+            (github.event_name == 'schedule' && github.event.schedule == '0 17 * * *') ||
+            (github.event_name == 'workflow_dispatch' && (inputs.target == 'humor' || inputs.target == 'both'))
+          }}
+        env:
+          MASTODON_TOKEN: ${{ secrets.MASTODON_TOKEN }}
+          MASTODON_BASE_URL: ${{ secrets.MASTODON_BASE_URL }}
+          DRY_RUN: ${{ github.event_name == 'schedule' && 'false' || inputs.dry_run }}
+          BOT_MODE: "bilingual"
+          MASTODON_VISIBILITY: "public"
+          QUOTES_FILE: "quotes_humor_bilingue.json"
+          STATE_FILE: "state_humor.json"
+          TAG_PT_BR: "#filosofia #humor"
+          TAG_EN: "#philosophy #humor"
+        run: python bot_mastodon_filosofia.py
 
       - name: Commit state
         run: |
@@ -48,6 +88,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add state.json
+          git add state_humor.json
           git diff --cached --quiet || git commit -m "Atualiza estado das frases"
 
       - name: Push state
