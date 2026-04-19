@@ -11,7 +11,8 @@ MASTODON_VISIBILITY = os.getenv("MASTODON_VISIBILITY", "public").strip() or "pub
 
 STATE_FILE = Path("state.json")
 DEFAULT_QUOTES_FILE = Path("quotes_bilingue.json")
-QUOTES_FILE = Path(os.getenv("QUOTES_FILE", str(DEFAULT_QUOTES_FILE))).expanduser()
+_raw_quotes_file = (os.getenv("QUOTES_FILE") or "").strip()
+QUOTES_FILE = Path(_raw_quotes_file or str(DEFAULT_QUOTES_FILE)).expanduser()
 
 BOT_MODE = os.getenv("BOT_MODE", "alternate").strip().lower() or "alternate"
 DRY_RUN = os.getenv("DRY_RUN", "false").strip().lower() in {"1", "true", "yes", "y", "on"}
