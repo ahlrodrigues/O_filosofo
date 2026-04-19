@@ -4,6 +4,4 @@ O filosofo.txt
 .venv/
 __pycache__/
 *.pyc
-card.png
-card_teste.png
-card_*.png
+card*.png

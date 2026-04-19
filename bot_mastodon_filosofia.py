@@ -4,7 +4,6 @@ import random
 import uuid
 import requests
 from pathlib import Path
-from gerar_imagem import gerar_card
 
 MASTODON_TOKEN = os.getenv("MASTODON_TOKEN", "").strip()
 MASTODON_BASE_URL = os.getenv("MASTODON_BASE_URL", "").strip().rstrip("/")
@@ -13,11 +12,11 @@ MASTODON_VISIBILITY = os.getenv("MASTODON_VISIBILITY", "public").strip() or "pub
 STATE_FILE = Path("state.json")
 DEFAULT_QUOTES_FILE = Path("quotes_bilingue.json")
 QUOTES_FILE = Path(os.getenv("QUOTES_FILE", str(DEFAULT_QUOTES_FILE))).expanduser()
-CARD_FILE = Path(os.getenv("CARD_FILE", "card.png")).expanduser()
 
 BOT_MODE = os.getenv("BOT_MODE", "alternate").strip().lower() or "alternate"
 DRY_RUN = os.getenv("DRY_RUN", "false").strip().lower() in {"1", "true", "yes", "y", "on"}
-POST_WITH_MEDIA = os.getenv("POST_WITH_MEDIA", "true").strip().lower() in {"1", "true", "yes", "y", "on"}
+TAG_PT_BR = os.getenv("TAG_PT_BR", "#filosofia").strip() or "#filosofia"
+TAG_EN = os.getenv("TAG_EN", "#philosophy").strip() or "#philosophy"
 
 
 def load_state():
@@ -53,6 +52,8 @@ def migrate_state_if_needed(state, quotes):
     if "used_ids" in state:
         if not isinstance(state.get("used_ids"), list):
             state["used_ids"] = []
+        if state.get("last_language") == "pt":
+            state["last_language"] = "pt_br"
         return state
 
     used_indexes = state.get("used_indexes")
@@ -72,17 +73,21 @@ def migrate_state_if_needed(state, quotes):
 
     state["used_ids"] = list(dict.fromkeys(mapped_ids))
     state.pop("used_indexes", None)
+    if state.get("last_language") == "pt":
+        state["last_language"] = "pt_br"
     return state
 
 
 def resolve_language(state):
-    if BOT_MODE == "pt":
-        return "pt"
+    if BOT_MODE in {"pt_br", "pt-br", "pt"}:
+        return "pt_br"
     if BOT_MODE == "en":
         return "en"
     if BOT_MODE == "alternate":
         last = state.get("last_language", "en")
-        return "pt" if last == "en" else "en"
+        if last in {"pt_br", "pt-br", "pt"}:
+            return "en"
+        return "pt_br"
     if BOT_MODE == "bilingual":
         return "bilingual"
     raise ValueError(f"BOT_MODE inválido: {BOT_MODE!r}")
@@ -104,10 +109,27 @@ def pick_quote(quotes, state):
         state.setdefault("used_ids", []).append(quote_id)
 
     language = resolve_language(state)
-    if language in {"pt", "en"}:
+    if language in {"pt_br", "en"}:
         state["last_language"] = language
 
     return quote, language, state
+
+
+def format_tag(tag: str) -> str:
+    tag = (tag or "").strip()
+    if not tag:
+        return ""
+    if not tag.startswith("#"):
+        tag = f"#{tag}"
+    return tag
+
+
+def get_language_tag(language: str) -> str:
+    if language == "pt_br":
+        return TAG_PT_BR
+    if language == "en":
+        return TAG_EN
+    raise ValueError(f"Idioma inválido: {language!r}")
 
 
 def build_post(quote, language):
@@ -119,12 +141,14 @@ def build_post(quote, language):
         text_en = quote["quote_en"]
         author_en = quote["author_en"]
         status = f'“{text_pt}”\n— {author_pt}\n\n“{text_en}”\n— {author_en}'
+        tags = " ".join(t for t in [format_tag(TAG_PT_BR), format_tag(TAG_EN)] if t)
+        if tags:
+            status = f"{status}\n\n{tags}"
         if source_url:
             status = f"{status}\n\n{source_url}"
-        alt_text = f'Card com a citação em PT/EN — {author_pt} / {author_en}'
-        return status, None, alt_text, text_pt, author_pt
+        return status, None
 
-    if language == "pt":
+    if language == "pt_br":
         text = quote["quote_pt"]
         author = quote["author_pt"]
     else:
@@ -132,41 +156,24 @@ def build_post(quote, language):
         author = quote["author_en"]
 
     status = f'“{text}”\n\n{author}'
+    tag = format_tag(get_language_tag(language))
+    if tag:
+        status = f"{status}\n\n{tag}"
     if source_url:
         status = f"{status}\n{source_url}"
 
-    alt_text = f'Card com a citação: "{text}" — {author}'
-    return status, language, alt_text, text, author
+    return status, language
 
 
-def upload_media(card_path, alt_text):
-    url = f"{MASTODON_BASE_URL}/api/v2/media"
-
-    headers = {
-        "Authorization": f"Bearer {MASTODON_TOKEN}"
-    }
-
-    with open(card_path, "rb") as f:
-        response = requests.post(
-            url,
-            headers=headers,
-            files={"file": (card_path.name, f, "image/png")},
-            data={"description": alt_text},
-            timeout=60,
-        )
-
-    if response.status_code not in (200, 202):
-        raise RuntimeError(f"Erro ao enviar mídia: {response.status_code} - {response.text}")
-
-    data = response.json()
-    media_id = data.get("id")
-    if not media_id:
-        raise RuntimeError("A resposta do upload não trouxe media id.")
-
-    return media_id
+def to_mastodon_language(language):
+    if language is None:
+        return None
+    if language == "pt_br":
+        return "pt-BR"
+    return language
 
 
-def post_to_mastodon(status, language, media_id=None):
+def post_to_mastodon(status, language):
     url = f"{MASTODON_BASE_URL}/api/v1/statuses"
 
     headers = {
@@ -179,11 +186,9 @@ def post_to_mastodon(status, language, media_id=None):
         "visibility": MASTODON_VISIBILITY,
     }
 
-    if language:
-        data["language"] = language
-
-    if media_id:
-        data["media_ids[]"] = [media_id]
+    mastodon_language = to_mastodon_language(language)
+    if mastodon_language:
+        data["language"] = mastodon_language
 
     response = requests.post(url, headers=headers, data=data, timeout=60)
     if response.status_code != 200:
@@ -217,28 +222,17 @@ def main():
     print("🎯 Escolhendo frase...")
     quote, language, state = pick_quote(quotes, state)
 
-    status, post_language, alt_text, card_text, card_author = build_post(quote, language)
+    status, post_language = build_post(quote, language)
 
     print("\n📢 Post a ser enviado:\n")
     print(status)
 
     if DRY_RUN:
-        print("\n🧪 DRY_RUN=true: não vai enviar mídia nem publicar.")
-        if POST_WITH_MEDIA:
-            print(f"🖼️ Gerando card: {CARD_FILE}")
-            gerar_card(card_text, card_author, output=str(CARD_FILE))
+        print("\n🧪 DRY_RUN=true: não vai publicar.")
         return
 
-    media_id = None
-    if POST_WITH_MEDIA:
-        print(f"🖼️ Gerando card: {CARD_FILE}")
-        gerar_card(card_text, card_author, output=str(CARD_FILE))
-
-        print("📤 Enviando imagem...")
-        media_id = upload_media(CARD_FILE, alt_text)
-
     print("📝 Publicando no Mastodon...")
-    post = post_to_mastodon(status, post_language, media_id=media_id)
+    post = post_to_mastodon(status, post_language)
 
     print("💾 Salvando estado...")
     save_state(state)

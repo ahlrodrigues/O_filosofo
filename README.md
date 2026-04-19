@@ -5,12 +5,11 @@ Bot em Python para publicar citações filosóficas no Mastodon, alternando auto
 ## O que ele faz
 
 - publica uma frase por execução
-- alterna PT/EN automaticamente no modo `alternate`
+- alterna PT-BR/EN automaticamente no modo `alternate`
 - evita repetir frases até esgotar o arquivo
 - pode marcar o idioma do post com o campo `language`
 - usa `Idempotency-Key` para ajudar a evitar duplicatas acidentais
 - mantém histórico local em `state.json`
-- opcionalmente gera um card (imagem) e anexa no post
 
 ## Estrutura esperada do JSON
 
@@ -67,15 +66,15 @@ Quando o preview estiver bom, troque para `DRY_RUN=false`.
 ## Modos
 
 - `BOT_MODE=alternate` alterna PT e EN a cada execução
-- `BOT_MODE=pt` força português
+- `BOT_MODE=pt_br` força português (pt-BR)
 - `BOT_MODE=en` força inglês
 - `BOT_MODE=bilingual` publica os dois idiomas no mesmo post
 
 ## Configurações úteis
 
-- `POST_WITH_MEDIA=true|false` anexa um card gerado ao post
 - `QUOTES_FILE=...` permite trocar o arquivo de frases
 - `MASTODON_VISIBILITY=public|unlisted|private|direct`
+- `TAG_PT_BR=#filosofia` e `TAG_EN=#philosophy` adicionam hashtags por idioma
 
 ## Agendamento
 
