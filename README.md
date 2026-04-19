@@ -7,9 +7,10 @@ Bot em Python para publicar citações filosóficas no Mastodon, alternando auto
 - publica uma frase por execução
 - alterna PT/EN automaticamente no modo `alternate`
 - evita repetir frases até esgotar o arquivo
-- marca o idioma do post com o campo `language`
+- pode marcar o idioma do post com o campo `language`
 - usa `Idempotency-Key` para ajudar a evitar duplicatas acidentais
 - mantém histórico local em `state.json`
+- opcionalmente gera um card (imagem) e anexa no post
 
 ## Estrutura esperada do JSON
 
@@ -18,7 +19,8 @@ O arquivo `quotes_bilingue.json` deve conter itens assim:
 ```json
 {
   "id": "q001",
-  "author": "Marcus Aurelius",
+  "author_pt": "Marco Aurélio",
+  "author_en": "Marcus Aurelius",
   "quote_pt": "Você tem poder sobre sua mente, não sobre os acontecimentos externos.",
   "quote_en": "You have power over your mind, not outside events.",
   "source_url": "https://www.gutenberg.org/ebooks/2680",
@@ -40,7 +42,7 @@ Depois, edite o `.env`.
 
 ## Como obter o token do Mastodon
 
-Você precisa registrar um app no seu servidor Mastodon e autorizar um usuário com escopo `write:statuses`. A documentação oficial do Mastodon indica que a publicação de posts é feita via `POST /api/v1/statuses` e exige um token de usuário com `write:statuses`. Também é possível marcar o idioma do post com `language`. citeturn349224search0turn349224search1turn349224search8
+Você precisa registrar um app no seu servidor Mastodon e autorizar um usuário com escopo `write:statuses`.
 
 Resumo do fluxo:
 
@@ -69,6 +71,12 @@ Quando o preview estiver bom, troque para `DRY_RUN=false`.
 - `BOT_MODE=en` força inglês
 - `BOT_MODE=bilingual` publica os dois idiomas no mesmo post
 
+## Configurações úteis
+
+- `POST_WITH_MEDIA=true|false` anexa um card gerado ao post
+- `QUOTES_FILE=...` permite trocar o arquivo de frases
+- `MASTODON_VISIBILITY=public|unlisted|private|direct`
+
 ## Agendamento
 
 ### Cron diário
@@ -85,6 +93,6 @@ Também funciona bem em GitHub Actions, desde que você guarde o token nos secre
 
 ## Observações
 
-- O Mastodon suporta `scheduled_at`, então futuramente o bot pode ser adaptado para agendamento direto pela API. citeturn349224search0
-- O escopo recomendado aqui é o mínimo necessário: `write:statuses`. citeturn349224search0turn349224search1
+- No `schedule` do GitHub Actions, o cron é em UTC.
+- O escopo recomendado é o mínimo necessário: `write:statuses`.
 - Links ainda aparecem como URLs no texto. O Mastodon não transforma palavras arbitrárias em link clicável dentro do conteúdo do post.
