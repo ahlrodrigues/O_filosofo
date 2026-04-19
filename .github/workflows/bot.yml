@@ -29,18 +29,18 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-
       - name: Run bot
         env:
           MASTODON_TOKEN: ${{ secrets.MASTODON_TOKEN }}
           MASTODON_BASE_URL: ${{ secrets.MASTODON_BASE_URL }}
-          DRY_RUN: ${{ secrets.DRY_RUN }}
-          BOT_MODE: ${{ secrets.BOT_MODE }}
-          MASTODON_VISIBILITY: ${{ secrets.MASTODON_VISIBILITY }}
-          QUOTES_FILE: ${{ secrets.QUOTES_FILE }}
-          TAG_PT_BR: ${{ secrets.TAG_PT_BR }}
-          TAG_EN: ${{ secrets.TAG_EN }}
+          DRY_RUN: "false"
+          BOT_MODE: "alternate"
+          MASTODON_VISIBILITY: "public"
+          QUOTES_FILE: "quotes_bilingue.json"
+          TAG_PT_BR: "#filosofia #citacoes"
+          TAG_EN: "#philosophy #quotes"
         run: python bot_mastodon_filosofia.py
+
 
       - name: Commit state
         run: |
