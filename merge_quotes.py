@@ -19,10 +19,13 @@ def save_json(path, data):
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
-def run(cmd):
-    result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+def run(cmd, redact=None):
+    result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
-        print(f"Erro: {result.stderr}")
+        stderr = result.stderr
+        if redact:
+            stderr = stderr.replace(redact, "***")
+        print(f"Erro: {stderr}")
         return False
     return True
 
@@ -31,10 +34,13 @@ def main():
     print(f"📚 Carregando {MAIN_FILE}...")
     main_data = load_json(MAIN_FILE)
     main_count = len(main_data)
-    
+
     print(f"📚 Carregando {NEW_FILE}...")
     new_data = load_json(NEW_FILE)
-    
+    if not isinstance(new_data, list):
+        print(f"❌ {NEW_FILE} deve conter uma lista de quotes (encontrei {type(new_data).__name__}).")
+        return
+
     verified = [q for q in new_data if q.get("verified", False)]
     print(f"✅ Verificadas: {len(verified)}")
     
@@ -49,15 +55,16 @@ def main():
     print(f"💾 Salvo em {MAIN_FILE}")
     
     print("📝 Commitando...")
-    run("git add quotes_bilingue.json quotes_new.json")
-    run(f'git config user.name "Bot"')
-    run(f'git config user.email "bot@.local"')
-    run(f'git commit -m "{COMMIT_MSG}"')
-    
+    run(["git", "add", "quotes_bilingue.json", "quotes_new.json"])
+    run(["git", "config", "user.name", "Bot"])
+    run(["git", "config", "user.email", "bot@.local"])
+    run(["git", "commit", "-m", COMMIT_MSG])
+
     if GH_TOKEN:
         print("📤 Pushando...")
-        run(f"git push https://{GH_TOKEN}@github.com/ahlrodrigues/O_filosofo.git")
-        print("✅ Concluído!")
+        remote_url = f"https://x-access-token:{GH_TOKEN}@github.com/ahlrodrigues/O_filosofo.git"
+        if run(["git", "push", remote_url], redact=GH_TOKEN):
+            print("✅ Concluído!")
     else:
         print("⚠️ GH_TOKEN não definido. Execute manualmente:")
         print("   git push")

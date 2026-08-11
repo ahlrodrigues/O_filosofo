@@ -38,6 +38,15 @@ def save_state(state):
     with open(STATE_FILE, "w", encoding="utf-8") as f:
         json.dump(state, f, ensure_ascii=False, indent=2)
 
+REQUIRED_QUOTE_FIELDS = ["id", "quote_pt_br", "author_pt_br", "quote_en", "author_en"]
+
+
+def is_valid_quote(q):
+    if not isinstance(q, dict):
+        return False
+    return all(str(q.get(field) or "").strip() for field in REQUIRED_QUOTE_FIELDS)
+
+
 def load_quotes():
     if not QUOTES_FILE.exists():
         raise FileNotFoundError(f"Arquivo não encontrado: {QUOTES_FILE}")
@@ -48,7 +57,17 @@ def load_quotes():
     if not isinstance(quotes, list) or not quotes:
         raise ValueError("O arquivo de frases está vazio ou inválido.")
 
-    return quotes
+    valid_quotes = []
+    for q in quotes:
+        if is_valid_quote(q):
+            valid_quotes.append(q)
+        else:
+            print(f"⚠️ Ignorando quote inválida/incompleta: {q.get('id') if isinstance(q, dict) else q!r}")
+
+    if not valid_quotes:
+        raise ValueError("Nenhuma quote válida encontrada no arquivo.")
+
+    return valid_quotes
 
 def migrate_state_if_needed(state, quotes):
     """

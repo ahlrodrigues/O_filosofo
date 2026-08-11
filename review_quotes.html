@@ -46,6 +46,14 @@
                 <p style="color:#999;font-size:12px;">ou arraste aqui ↓</p>
             </div>
             
+            <div style="margin-top:15px;">
+                <strong>quotes_bilingue.json (principal):</strong>
+                <button onclick="downloadMain()" style="background:#2196f3;color:white;">
+                    ⬇️ Baixar Principal
+                </button>
+                <span id="mainStatus" style="color:#666;font-size:12px;"></span>
+            </div>
+            
 <div style="margin-top:15px;padding-top:15px;border-top:1px solid #ddd;">
                 <strong>GitHub Token:</strong>
                 <input type="password" id="ghToken" placeholder="ghp_..." style="width:300px;padding:8px;">
@@ -165,6 +173,31 @@
             const content = await resp.text();
             return JSON.parse(content);
         }
+
+        async function downloadMain() {
+            const token = document.getElementById('ghToken').value || localStorage.getItem('gh_token');
+            if (!token) {
+                alert('Cole o GitHub Token primeiro');
+                return;
+            }
+            localStorage.setItem('gh_token', token);
+            
+            try {
+                const resp = await fetch('https://raw.githubusercontent.com/ahlrodrigues/O_filosofo/main/quotes_bilingue.json');
+                if (!resp.ok) throw new Error('Erro: ' + resp.status);
+                const content = await resp.text();
+                
+                await fetch('http://localhost:3456/save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ filename: 'quotes_bilingue.json', content })
+                });
+                
+                document.getElementById('mainStatus').textContent = '✓ Salvou!';
+            } catch(e) {
+                alert('Erro: ' + e.message);
+            }
+        }
         
         async function checkReady() {
             if (!newQuotes.length) return;
@@ -214,7 +247,7 @@
                         <input type="text" value="${escapeHtml(q.author_pt_br)}" onchange="updateAuthor(${idx}, this.value)" 
                                style="width:100%;padding:8px;margin-top:5px;border:1px solid #ddd;border-radius:4px;">
                     </div>
-                    <span class="theme">${q.theme || 'filosofia'}</span>
+                    <span class="theme">${escapeHtml(q.theme || 'filosofia')}</span>
                     <div class="actions">
                         <button class="btn-verify" onclick="toggleVerify(${idx})">
                             ${q.verified ? '✓ Verificada' : 'Marcar Verificada'}
@@ -325,6 +358,13 @@
                 
                 if (pushResp.ok) {
                     alert('✅ Pushado com sucesso!');
+                    
+                    await fetch('http://localhost:3456/save', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ filename: 'quotes_bilingue.json', content })
+                    });
+                    
                     localStorage.removeItem('quotes_review_new');
                 } else {
                     const err = await pushResp.text();

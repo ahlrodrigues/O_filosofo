@@ -99,7 +99,7 @@ PHILOSOPHICAL_QUOTES = [
 ]
 
 
-AUTHOR_TRANSlations = {
+AUTHOR_TRANSLATIONS = {
     "Marcus Aurelius": "Marco Aurélio",
     "Seneca": "Sêneca",
     "Epictetus": "Epicteto",
@@ -147,7 +147,7 @@ def main():
         author_en = q["author"]
         theme = q["theme"]
         
-        author_pt = AUTHOR_TRANSlations.get(author_en, author_en)
+        author_pt = AUTHOR_TRANSLATIONS.get(author_en, author_en)
         
         print(f"  📝 {i+1}/{len(quotes_to_process)}: {author_en}")
         
